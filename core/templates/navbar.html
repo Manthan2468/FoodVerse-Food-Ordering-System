@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/nvbar.css' %}">
+</head>
+<body>
+<nav>
+    <a href="/" class="nav-logo">
+        <img src="{% static 'Images/nav_logo.png' %}" class="logo-mark" alt="logo">
+    </a>
+
+    <ul class="nav-links mb-0">
+        <li><a href="/">Home</a></li>
+        <li><a href="/menu/">Menu</a></li>
+        <li><a href="/restaurant/">Restaurants</a></li>
+        <li><a href="/my_orders/">My Orders</a></li>
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="/contact/">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <a class="cart-icon text-black" href="/cart/" title="Cart">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <div class="cart-badge">3</div>
+      </a>
+        {% if request.user.is_authenticated %}
+            <a href="/logout/" class="btn-ghost">Logout</a>
+        {% else %}
+            <a href="/login/" class="btn-ghost">Log In</a>
+            <a href="/register/" class="btn-primary">
+                Sign up <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        {% endif %}
+    </div>
+  </nav>
+
+</body>
+</html>

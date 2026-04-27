@@ -1,0 +1,57 @@
+{% extends 'base_product.html' %}
+{% load static %}
+{% block body %}
+
+<section class="product-page mt-5">
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="error-alert">
+                {{ message }}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+    <div class="container">
+
+{% if products %}
+
+    <div class="section-header">
+        <h2>Our Delicious Menu - {{ category_name }}</h2>
+        <p>Choose your favorite dishes</p>
+    </div>
+
+    <div class="product-grid">
+        {% for product in products %}
+        <div class="product-card">
+
+            <div class="product-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="category">{{ product.category.name }} • {{ product.restaurant.name }}</p>
+                <p class="desc">{{ product.description|truncatechars:60 }}</p>
+
+                <div class="bottom-row">
+                    <span class="price">₹ {{ product.price }}</span>
+                    <a href="/add_item_cart/{{ product.id }}" class="add-btn">Add +</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+
+<div class="no-product">
+    <h2>No Products Found 😔</h2>
+    <p>Sorry, we couldn't find any items in <strong>{{ category_name }}</strong></p>
+    <a href="/" class="btn-back">Go Home</a>
+</div>
+{% endif %}
+</div>
+</section>
+
+{% endblock %}

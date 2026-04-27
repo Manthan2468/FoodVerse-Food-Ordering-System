@@ -1,0 +1,315 @@
+/* ====================== FOOD ORDERING LOGIN & REGISTER PAGE ====================== */
+* {
+    box-sizing: border-box;
+}
+/* ====================== COMMON CONTAINER STYLES ====================== */
+.login-container,.register-container {
+    width: 100%;
+    max-width: 920px;
+    background: white;
+    border-radius: 28px;
+    box-shadow: 0 25px 50px -12px rgba(249, 115, 22, 0.25);
+    overflow: hidden;
+    display: flex;
+}
+
+/* ====================== FORM SIDE (COMMON) ====================== */
+.form-side {
+    flex: 1;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-side h2 {
+    color: #c2410c;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.form-side p {
+    color: #9f1239;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+/* Inputs */
+.form-control {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 1rem;
+    border: 2px solid #fdba74;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
+    outline: none;
+}
+
+/* Button */
+.btn-login {
+    background: linear-gradient(90deg, #f97316, #ea580c);
+    color: white;
+    width: 100%;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(249, 115, 22, 0.4);
+}
+
+/* Links */
+.other_links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.other_links a {
+    text-align: center;
+    text-decoration: none;
+    color: #f97316;
+}
+
+.other_links a:hover {
+    text-decoration: underline;
+}
+
+/* ====================== ILLUSTRATION SIDE (COMMON) ====================== */
+.illustration-side {
+    flex: 1;
+    background: linear-gradient(135deg, #fffbeb, #fed7aa);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.plate-wrapper {
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.plate {
+    width: 160px;
+    height: 160px;
+    background: #fff;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    position: relative;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15),
+                inset 0 8px 18px rgba(249, 115, 22, 0.1);
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plate::before {
+    content: '';
+    width: 100px;
+    height: 100px;
+    background: #f59e0b;
+    border-radius: 50%;
+    box-shadow: inset 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.plate::after {
+    content: '🍔';
+    font-size: 55px;
+    position: absolute;
+    transition: all 0.6s ease;
+}
+
+.steam {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 26px;
+    opacity: 0;
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+/* ====================== INTERACTIVE MAGIC (COMMON) ====================== */
+#plate-switch:checked ~ .login-container .plate,
+#plate-switch:checked ~ .register-container .plate {
+    box-shadow:
+        0 0 45px #fb923c,
+        0 0 85px #f59e0b,
+        inset 0 15px 30px rgba(255,255,255,0.7);
+    transform: scale(1.1);
+}
+
+#plate-switch:checked ~ .login-container .plate::after,
+#plate-switch:checked ~ .register-container .plate::after {
+    transform: scale(1.18) rotate(12deg);
+    animation: food-bob 1.4s ease-in-out infinite;
+}
+
+#plate-switch:checked ~ .login-container .steam,
+#plate-switch:checked ~ .register-container .steam {
+    opacity: 1;
+    animation: steam-rise 2.8s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes food-bob {
+    0%, 100% { transform: scale(1.18) rotate(12deg); }
+    50% { transform: scale(1.13) rotate(-8deg); }
+}
+
+@keyframes steam-rise {
+    0%   { opacity: 0; transform: translateX(-50%) translateY(30px); }
+    20%  { opacity: 0.9; }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-80px); }
+}
+
+/* ====================== RESPONSIVE DESIGN ====================== */
+
+/* Tablet & Mobile */
+@media (max-width: 768px) {
+    body {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+
+    .login-container,
+    .register-container {
+        flex-direction: column;
+        border-radius: 20px;
+        max-width: 100%;
+    }
+
+    .form-side {
+        padding: 2rem 1.5rem;
+    }
+
+    .illustration-side {
+        padding: 25px 15px;
+        min-height: 280px;
+    }
+
+    .plate {
+        width: 130px;
+        height: 130px;
+    }
+
+    .plate::before {
+        width: 80px;
+        height: 80px;
+    }
+
+    .plate::after {
+        font-size: 45px;
+    }
+
+    .steam {
+        font-size: 24px;
+        top: 25px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .form-side h2 {
+        font-size: 1.6rem;
+    }
+
+    .form-control {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+
+    .btn-login {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .illustration-side {
+        padding: 20px 10px;
+    }
+}
+
+/* Large Screens */
+@media (min-width: 1200px) {
+    .login-container,
+    .register-container {
+        max-width: 1050px;
+    }
+
+    .plate {
+        width: 190px;
+        height: 190px;
+    }
+
+    .plate::before {
+        width: 118px;
+        height: 118px;
+    }
+
+    .plate::after {
+        font-size: 65px;
+    }
+}
+
+.custom-alert {
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+    color: #9a3412;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* Base Alert */
+.custom-alert-login {
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 0.9rem;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Error (Red) */
+.alert-error {
+    background: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+}
+
+/* Success (Green) */
+.alert-success {
+    background: #dcfce7;
+    border: 1px solid #86efac;
+    color: #166534;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

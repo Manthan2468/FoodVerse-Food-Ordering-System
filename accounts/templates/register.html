@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block start %}
+
+
+<input type="checkbox" id="plate-switch" style="display: none;">
+
+    <div class="register-container">
+    <!-- Left Side -->
+    <div class="form-side">
+        <h2>Create Account 🍽️</h2>
+        <p>Join us and start ordering delicious food</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning custom-alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <input type="email" class="form-control" name="email" placeholder="Email Address" required>
+            <input type="number" class="form-control" name="phone_number" placeholder="Phone Number" required>
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required>
+
+            <button type="submit" class="btn-login">Create Account</button>
+        </form>
+
+        <div class="other_links">
+            <a href="{% url 'login' %}">Already have an account? Login</a>
+            <a href="{% url 'home' %}">Home</a>
+        </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="illustration-side">
+    <label for="plate-switch" class="plate-wrapper">
+        <div class="plate">
+            <span class="steam">♨︎ ♨︎</span>
+        </div>
+        <p>Fresh food is waiting for you 😋</p>
+    </label>
+</div>
+
+</div>
+
+{% endblock %}

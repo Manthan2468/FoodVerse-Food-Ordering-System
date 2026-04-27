@@ -1,0 +1,165 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* VARIABLES (same theme) */
+:root {
+  --cream: #FDF6EC;
+  --orange: #E8571A;
+  --orange-dark: #C04512;
+  --brown: #2C1810;
+  --brown-mid: #5C3D2E;
+  --border: rgba(44,24,16,0.1);
+}
+
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(253, 246, 236, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+
+  z-index: 1000;
+}
+
+/* LOGO */
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-mark {
+  width: 140px;
+  height: auto;
+}
+
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  list-style: none;
+}
+
+.nav-links li {
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--brown-mid);
+  position: relative;
+  transition: 0.3s;
+}
+
+/* underline effect */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--orange);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ACTIONS (RIGHT SIDE) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* CART ICON */
+.cart-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+}
+
+.cart-icon:hover {
+  border-color: var(--orange);
+  background: rgba(232, 87, 26, 0.05);
+}
+
+/* CART BADGE */
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--orange);
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BUTTONS */
+.btn-ghost {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--brown);
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.btn-ghost:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.btn-primary {
+  padding: 8px 20px;
+  border-radius: 50px;
+  background: var(--orange);
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+}

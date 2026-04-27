@@ -1,0 +1,285 @@
+{% extends 'base_core.html' %}
+{% block body %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/home_main_css.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+
+<!-- ═══ HERO ═══ -->
+<section class="home-hero">
+  <div class="home-hero-inner">
+
+    <!-- LEFT -->
+    <div class="home-hero-content">
+      <div class="home-badge">
+        <div class="home-badge-dot">🔥</div>
+        Fresh &amp; Hot - Delivered in 30 min
+      </div>
+
+      <h1 class="home-main-title">
+        <em>Delicious</em> food,<br>
+        at your <span class="home-underline">doorstep</span>
+      </h1>
+
+      <p class="home-hero-desc">
+        From local favourites to hidden gems - browse hundreds of restaurants and get your favourite meals delivered fast.
+      </p>
+
+      <div class="home-tags-row">
+        <span class="home-tag home-tag-active">🍕 Pizza</span>
+        <span class="home-tag">🍔 Burgers</span>
+        <span class="home-tag">🍣 Sushi</span>
+        <span class="home-tag">🥗 Salads</span>
+        <span class="home-tag">🍜 Noodles</span>
+      </div>
+
+      <div class="home-search-box">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Search for dishes, restaurants..." />
+        <button class="home-search-btn">Find Food</button>
+      </div>
+
+      <div class="home-stats-row">
+        <div class="home-stat-item">
+          <span class="home-stat-number">500+</span>
+          <span class="home-stat-label">Restaurants</span>
+        </div>
+        <div class="home-stat-divider"></div>
+        <div class="home-stat-item">
+          <span class="home-stat-number">30 min</span>
+          <span class="home-stat-label">Avg. delivery</span>
+        </div>
+        <div class="home-stat-divider"></div>
+        <div class="home-stat-item">
+          <span class="home-stat-number">4.9★</span>
+          <span class="home-stat-label">App rating</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="home-hero-visual">
+      <div class="home-dish-circle">
+        <div class="home-float-food">🍕</div>
+        <div class="home-float-food">🍔</div>
+        <div class="home-float-food">🥗</div>
+        <div class="home-float-food">🍣</div>
+        <div class="home-main-dish">🍝</div>
+      </div>
+
+      <!-- Delivery card -->
+      <div class="home-info-card home-card-delivery">
+        <div class="home-card-icon">🛵</div>
+        <div>
+          <div class="home-card-text-main">On the way!</div>
+          <div class="home-card-text-sub">Arriving in 12 min</div>
+        </div>
+      </div>
+
+      <!-- Rating card -->
+      <div class="home-info-card home-card-rating">
+        <div class="home-rating-num">4.9</div>
+        <div class="home-stars">★★★★★</div>
+        <div class="home-rating-label">12k+ reviews</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CATEGORIES -->
+<section class="home-categories-section">
+  <h2 class="home-section-title">Popular Categories</h2>
+
+  <div class="home-category-grid">
+    {% for category in categories %}
+      <a class="home-category-card text-decoration-none" href="/product_list/{{ category.id }}">
+        <img src="{{ category.image.url }}" alt="{{ category.name }}">
+        <span class="home-category-name">{{ category.name }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div class="home-btn-wrap">
+    <a href="/category/" class="home-primary-btn">
+      View All Categories →
+    </a>
+  </div>
+</section>
+
+
+<!-- POPULAR DISHES -->
+<section class="home-dishes-section">
+  <div class="home-container">
+    <div class="home-section-head">
+      <h2>Popular Dishes</h2>
+      <p>Most loved meals by our customers this week</p>
+    </div>
+
+    <div class="home-dishes-grid">
+      {% for pop_item in popular_products %}
+      <div class="home-dish-card">
+        <div class="home-dish-image">
+          <img src="{{ pop_item.image.url }}" alt="{{ pop_item.name }}">
+          <span class="home-rating-badge">⭐ {{ pop_item.rating }}</span>
+        </div>
+        <div class="home-dish-content">
+          <h3>{{ pop_item.name }}</h3>
+          <p class="home-restaurant-text">{{ pop_item.restaurant.name }} - {{ pop_item.restaurant.location }}</p>
+          <div class="home-price-row">
+            <span class="home-price">₹ {{ pop_item.price }}</span>
+            <button class="home-add-btn">Add +</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="home-btn-wrap">
+      <a href="popular_dishes/" class="home-primary-btn">View All Dishes →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- TOP RESTAURANTS -->
+<section class="home-restaurant-section">
+  <div class="home-container">
+    <div class="home-section-head">
+      <h2>Top Restaurants</h2>
+      <p>Discover the best restaurants near you</p>
+    </div>
+
+    <div class="home-restaurant-grid">
+      {% for restaurant in restaurant %}
+      <div class="home-restaurant-card">
+        <img src="{{ restaurant.image.url }}" alt="{{ restaurant.name }}">
+        <div class="home-restaurant-content">
+          <h3>{{ restaurant.name }}</h3>
+          <p class="home-location">📍 {{ restaurant.location }}</p>
+          <div class="home-meta-row">
+            <span>⭐ {{ restaurant.rating }}</span>
+            <span>⏱ {{ restaurant.time_to_deliver }}</span>
+          </div>
+          <a href="{% url 'view_menu' restaurant.id %}" class="home-primary-btn home-full-btn">View Menu →</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="home-btn-wrap">
+      <a href="/restaurant/" class="home-primary-btn">View All Restaurants</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- WHY CHOOSE US -->
+<section class="home-feature-section">
+  <div class="home-container">
+    <div class="home-section-head">
+      <h2>Why Choose Us</h2>
+      <p>We deliver more than just food — we deliver experience</p>
+    </div>
+
+    <div class="home-feature-grid">
+      <div class="home-feature-card">
+        <div class="home-feature-icon">🚀</div>
+        <h3>Fast Delivery</h3>
+        <p>Get your food delivered hot and fresh within minutes.</p>
+      </div>
+      <div class="home-feature-card">
+        <div class="home-feature-icon">🍽️</div>
+        <h3>Quality Food</h3>
+        <p>We partner with top restaurants to ensure best quality.</p>
+      </div>
+      <div class="home-feature-card">
+        <div class="home-feature-icon">💳</div>
+        <h3>Secure Payment</h3>
+        <p>Multiple payment options with safe transactions.</p>
+      </div>
+      <div class="home-feature-card">
+        <div class="home-feature-icon">📱</div>
+        <h3>Easy Ordering</h3>
+        <p>Simple and smooth ordering experience for everyone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- STATS -->
+<section class="home-stats-section">
+  <div class="home-stats-grid">
+    <div class="home-stats-card">
+      <h2>10K+</h2>
+      <p>Orders Delivered</p>
+    </div>
+    <div class="home-stats-card">
+      <h2>500+</h2>
+      <p>Restaurants</p>
+    </div>
+    <div class="home-stats-card">
+      <h2>8K+</h2>
+      <p>Happy Customers</p>
+    </div>
+    <div class="home-stats-card">
+      <h2>4.8 ⭐</h2>
+      <p>Average Rating</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="home-testimonial-section">
+  <div class="home-container">
+    <div class="home-section-head">
+      <h2>What Our Customers Say</h2>
+      <p>Real experiences from our happy users</p>
+    </div>
+
+    <div class="home-testimonial-grid">
+      <div class="home-testimonial-card">
+        <p>"Amazing service! Food arrived hot and fresh. Highly recommend!"</p>
+        <div class="home-user-box">
+          <img src="https://i.pravatar.cc/100?img=1" alt="Rahul Sharma">
+          <div>
+            <h4>Rahul Sharma</h4>
+            <span>⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-testimonial-card">
+        <p>"Great variety of restaurants and super fast delivery!"</p>
+        <div class="home-user-box">
+          <img src="https://i.pravatar.cc/100?img=2" alt="Anjali Patel">
+          <div>
+            <h4>Anjali Patel</h4>
+            <span>⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-testimonial-card">
+        <p>"Easy to use app and secure payment options. Loved it!"</p>
+        <div class="home-user-box">
+          <img src="https://i.pravatar.cc/100?img=3" alt="Amit Verma">
+          <div>
+            <h4>Amit Verma</h4>
+            <span>⭐⭐⭐⭐⭐</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

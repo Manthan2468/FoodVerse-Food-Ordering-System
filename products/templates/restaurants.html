@@ -1,0 +1,54 @@
+{% extends 'base_product.html' %}
+{% load static %}
+
+{% block body %}
+
+<div class="container container-restaurants">
+
+  <!-- SECTION HEADER -->
+  <div class="section-header">
+    <h2>Restaurants</h2>
+    <p>Explore the best places to eat near you</p>
+  </div>
+
+  {% for r in restaurant %}
+  <div class="restaurant-header">
+
+    <!-- IMAGE WRAPPER -->
+    <div class="restaurant-image">
+      <img class="restaurant-img" src="{{ r.image.url }}" alt="{{ r.name }}">
+    </div>
+
+    <!-- INFO SECTION -->
+    <div class="restaurant-info">
+
+      <h1 class="restaurant-title">{{ r.name }}</h1>
+
+      <p class="restaurant-description">
+        {{ r.restaurant_description }}
+      </p>
+
+      <div class="restaurant-meta">
+        <p class="restaurant-location">📍 {{ r.location }}</p>
+        <p class="restaurant-hours fw-bold">⏰ {{ r.opening_hours }} to {{ r.closed_hours }}</p>
+      </div>
+
+      <div class="restaurant-footer d-flex justify-content-between align-items-center">
+
+        <span class="restaurant-rating">⭐ {{ r.rating }} / 5</span>
+
+        <!-- VIEW MENU BUTTON -->
+        <a href="{% url 'view_menu' r.id %}" class="btn view-menu-btn">
+          View Menu →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+  {% endfor %}
+
+</div>
+
+{% endblock %}

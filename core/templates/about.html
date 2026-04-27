@@ -1,0 +1,93 @@
+{% extends 'base_core.html' %}
+{% block body %}
+{% load static %}
+
+<!-- Hero Section -->
+<section class="hero hero_about">
+    <div class="hero-text">
+        <h1>We Serve Taste, Not Just Food 🍕</h1>
+        <p>Your favorite meals delivered fast, fresh, and hot.</p>
+    </div>
+    <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+    </div>
+</section>
+
+<!-- Story Section -->
+<section class="story">
+    <div class="content">
+        <h2>Our Story</h2>
+        <p>
+            Started with a simple idea — making food ordering easy and enjoyable.
+            FoodieHub connects people with their favorite restaurants and delivers
+            happiness every day.
+        </p>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+    <div class="stat">
+        <h2>500+</h2>
+        <p>Restaurants</p>
+    </div>
+    <div class="stat">
+        <h2>10K+</h2>
+        <p>Happy Users</p>
+    </div>
+    <div class="stat">
+        <h2>30K+</h2>
+        <p>Orders Delivered</p>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <h2>Our Services</h2>
+    <div class="cards">
+
+        <div class="card">
+            <h3>⚡ Quick Delivery</h3>
+            <p>Lightning fast delivery at your doorstep.</p>
+        </div>
+
+        <div class="card">
+            <h3>🍔 Best Quality</h3>
+            <p>Fresh and hygienic food from top restaurants.</p>
+        </div>
+
+        <div class="card">
+            <h3>📱 Easy Ordering</h3>
+            <p>Simple and smooth ordering experience.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Team -->
+<section class="team">
+    <h2>Meet Our Team</h2>
+    <div class="team-container">
+
+        <div class="member">
+            <img src="{% static 'Images/Photo.png' %}">
+            <h3>Manthan</h3>
+            <p>Founder</p>
+        </div>
+
+        <div class="member">
+            <img src="{% static 'Images/Photo.png' %}">
+            <h3>Developer</h3>
+            <p>Backend Expert</p>
+        </div>
+
+        <div class="member">
+            <img src="{% static 'Images/Photo.png' %}">
+            <h3>Designer</h3>
+            <p>UI/UX Designer</p>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

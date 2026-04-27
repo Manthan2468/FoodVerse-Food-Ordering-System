@@ -1,0 +1,88 @@
+{% extends 'base_order.html' %}
+{% load static %}
+
+{% block body %}
+
+<section class="cart-page">
+<div class="container">
+
+    <!-- Page Header -->
+    <div class="section-header">
+        <h2>Your Cart</h2>
+        <p>Review your delicious selections before checkout</p>
+    </div>
+
+    {% if cart_items %}
+
+    <div class="cart-wrapper">
+        <!-- LEFT: Cart Items -->
+        <div class="cart-items">
+            {% for item in cart_items %}
+            <div class="cart-card">
+                <div class="cart-image">
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                </div>
+                <div class="cart-info">
+                    <h3>{{ item.product.name }}</h3>
+                    <p>{{ item.product.description|truncatewords:15 }}</p>
+                    <div class="item-meta">
+                        <span class="price">₹{{ item.product.price }}</span>
+                    </div>
+                </div>
+                <div class="quantity-box">
+                    <a href="#" class="qty-btn">-</a>
+                    <span>{{ item.quantity }}</span>
+                    <a href="#" class="qty-btn">+</a>
+                </div>
+                <div class="subtotal-box">
+                    <h4>₹{{ item.subtotal }}</h4>
+                    <a href="#" class="remove-btn">Remove</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- RIGHT: Order Summary -->
+        <div class="order-summary">
+            <div class="summary-card">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>₹{{ subtotal }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee</span>
+                    <span>₹40</span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax</span>
+                    <span>₹{{ tax }}</span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total</span>
+                    <span>₹{{ total }}</span>
+                </div>
+                <a href="{% url 'checkout' %}" class="checkout-btn">Proceed To Checkout</a>
+                <a href="{% url 'menu' %}" class="continue-btn">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+
+    <!-- Empty Cart Section -->
+    <div class="empty-cart">
+        <div class="empty-cart-box">
+            <img src="{% static 'images/empty-cart.png' %}" alt="Empty Cart">
+            <h2>No Food Items In Cart</h2>
+            <p>Your cart is empty. Add delicious dishes from our menu and place your first order.</p>
+            <a href="{% url 'menu' %}" class="shop-btn">Browse Menu</a>
+        </div>
+    </div>
+
+    {% endif %}
+
+</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block start %}
+
+<input type="checkbox" id="plate-switch" style="display: none;">
+
+<div class="login-container">
+
+    <!-- Left: Form -->
+    <div class="form-side">
+        <h2>Welcome Back 👋</h2>
+        <p>Login to order your favorite food</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="custom-alert-login
+                    {% if message.tags == 'error' %}alert-error{% endif %}
+                    {% if message.tags == 'success' %}alert-success{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="email" class="form-control" placeholder="Email" name="email" required>
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
+            <button type="submit" class="btn-login">Sign In</button>
+        </form>
+
+        <div style="text-align:center; margin-top: 25px; font-size: 0.95rem;" class="other_links">
+            <a href="#" style="color: #f97316; text-decoration: none;">Forgot Password?</a>
+            <a href="{% url 'register' %}" style="color: #f97316; text-decoration: none;">Register</a>
+            <a href="/" style="color: #f97316; text-decoration: none;">Home</a>
+        </div>
+    </div>
+
+    <!-- Right: Illustration -->
+    <div class="illustration-side">
+        <label for="plate-switch" class="plate-wrapper">
+            <div class="plate">
+                <span class="steam">♨︎ ♨︎</span>
+            </div>
+            <p>Click the plate to see the magic ✨</p>
+        </label>
+    </div>
+
+</div>
+
+{% endblock %}

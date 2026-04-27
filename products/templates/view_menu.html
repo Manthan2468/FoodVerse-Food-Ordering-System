@@ -1,0 +1,301 @@
+{% extends 'base_product.html' %}
+{% load static %}
+
+{% block body %}
+
+<style>
+.vm-page{
+    padding:40px 20px;
+    margin-top:4rem;
+    min-height:100vh;
+    background:linear-gradient(135deg,#fff6f3,#ffe9e3);
+}
+
+/* ================= HEADER ================= */
+
+.vm-header{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.vm-title{
+    font-size:34px;
+    font-weight:700;
+    color:#ff5a3c;
+    margin-bottom:10px;
+}
+
+.vm-subtitle{
+    color:#666;
+    margin:10px auto;
+    line-height:1.7;
+}
+
+.vm-meta{
+    margin-top:14px;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+    font-weight:500;
+}
+
+
+/* ================= GRID ================= */
+
+.vm-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:28px;
+}
+
+
+/* ================= CARD ================= */
+
+.vm-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 8px 22px rgba(0,0,0,.08);
+
+    transition:.3s ease;
+
+    /* important fix */
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+
+.vm-card:hover{
+    transform:translateY(-8px);
+}
+
+
+/* ================= IMAGE ================= */
+
+.vm-img-wrap{
+    height:190px;
+    overflow:hidden;
+}
+
+.vm-img-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+
+/* ================= CONTENT ================= */
+
+.vm-content{
+    padding:18px;
+
+    /* important */
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.vm-item-title{
+    font-size:20px;
+    font-weight:700;
+    color:#222;
+
+    /* keeps titles aligned */
+    min-height:50px;
+}
+
+.vm-item-desc{
+    font-size:14px;
+    line-height:1.6;
+    color:#777;
+    margin:10px 0 18px;
+
+    /* keeps descriptions equal height */
+    min-height:72px;
+}
+
+
+/* ================= BOTTOM ================= */
+
+.vm-bottom{
+    margin-top:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:nowrap; /* prevents wrapping */
+}
+
+.vm-price{
+    font-size:18px;
+    font-weight:700;
+    color:#ff5a3c;
+    white-space:nowrap;
+}
+}
+
+
+/* ================= BUTTON ================= */
+
+.vm-btn-add{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0; /* prevent button shrinking/wrapping */
+    min-width:95px;
+    height:42px;
+    border:none;
+    text-decoration:none;
+    background:linear-gradient(135deg,#ff7a5c,#ffb199);
+    color:#fff;
+    padding:0 18px;
+    border-radius:30px;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s ease;
+}
+
+.vm-btn-add:hover{
+    background:linear-gradient(135deg,#ff5a3c,#ff9472);
+    transform:translateY(-2px);
+    color:#fff;
+}
+
+/* ================= EMPTY STATE ================= */
+
+.vm-empty-wrapper{
+    min-height:70vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.vm-empty-state{
+    max-width:430px;
+    width:100%;
+
+    text-align:center;
+
+    padding:55px 40px;
+    border-radius:30px;
+
+    background:linear-gradient(135deg,#fff6f3,#ffe9e3);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.vm-empty-title{
+    font-size:30px;
+    font-weight:700;
+    color:#ff5a3c;
+    margin-bottom:14px;
+}
+
+.vm-empty-text{
+    font-size:17px;
+    color:#666;
+    line-height:1.6;
+    margin-bottom:28px;
+}
+
+.vm-empty-btn{
+    display:inline-block;
+    text-decoration:none;
+
+    background:linear-gradient(135deg,#ff7a5c,#ffb199);
+    color:#fff;
+
+    padding:12px 28px;
+    border-radius:30px;
+
+    font-weight:600;
+
+    transition:.3s ease;
+    box-shadow:0 6px 18px rgba(0,0,0,.1);
+}
+
+.vm-empty-btn:hover{
+    background:linear-gradient(135deg,#ff5a3c,#ff9472);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:768px){
+
+.vm-title{
+font-size:28px;
+}
+
+.vm-item-title{
+min-height:auto;
+}
+
+.vm-item-desc{
+min-height:auto;
+}
+
+.vm-meta{
+gap:15px;
+}
+
+}
+</style>
+
+<section class="vm-page">
+
+  <!-- HEADER -->
+  <div class="vm-header">
+    <h1 class="vm-title">{{ restaurant.name }}</h1>
+    <p class="vm-subtitle">{{ restaurant.restaurant_description }}</p>
+
+    <div class="vm-meta">
+      <span>📍 {{ restaurant.location }}</span>
+      <span>⭐ {{ restaurant.rating }} / 5</span>
+    </div>
+  </div>
+
+  <!-- MENU GRID -->
+  {% if menu %}
+  <div class="vm-container">
+    {% for item in menu %}
+    <div class="vm-card">
+
+      <!-- IMAGE -->
+      <div class="vm-img-wrap">
+        <img src="{{ item.image.url }}" alt="{{ item.name }}">
+      </div>
+
+      <!-- CONTENT -->
+      <div class="vm-content">
+        <h3 class="vm-item-title">{{ item.name }}</h3>
+
+        <p class="vm-item-desc">
+          {{ item.description|truncatewords:15 }}
+        </p>
+
+        <div class="vm-bottom">
+          <span class="vm-price">₹ {{ item.price }}</span>
+          <a class="vm-btn-add text-decoration-none"> Add + </a>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <div class="vm-empty-wrapper">
+        <div class="vm-empty-state">
+            <h2 class="vm-empty-title">No Menu Found 😔</h2>
+            <p class="vm-empty-text">Sorry, we couldn't find any items in <strong>{{ restaurant.name }}</strong>.</p>
+            <a href="/" class="vm-empty-btn"> Go Home → </a>
+        </div>
+    </div>
+  {% endif %}
+
+</section>
+
+{% endblock %}

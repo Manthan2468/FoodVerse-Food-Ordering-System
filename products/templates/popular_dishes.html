@@ -1,0 +1,64 @@
+{% extends 'base_product.html' %}
+{% block body %}
+
+<section class="product-page">
+
+  <div class="container">
+
+
+    <!-- GRID -->
+
+  {% if dishes %}
+    <!-- HEADER -->
+    <div class="section-header">
+      <h2>Popular Dishes</h2>
+      <p>Choose your favorite dishes</p>
+    </div>
+
+    <div class="product-grid">
+    {% for product in dishes %}
+    <div class="product-card">
+
+      <div class="product-image">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+      </div>
+
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+
+        <p class="category">
+          {{ product.category.name }} • {{ product.restaurant.name }}
+        </p>
+
+        <p class="desc">
+          {{ product.description|truncatechars:60 }}
+        </p>
+
+        <div class="bottom-row">
+          <span class="price">₹ {{ product.price }}</span>
+          <a href="/product_detail/{{ product.id }}" class="add-btn text-decoration-none">
+            Add +
+          </a>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  {% else %}
+
+    <!-- NO PRODUCT FOUND -->
+    <div class="no-product">
+      <h2>No Products Found 😔</h2>
+      <p>Sorry, we couldn't find any items in   <strong>{{ category_name }}</strong>.</p>
+      <a href="/" class="btn-back">Go Home</a>
+    </div>
+
+  {% endif %}
+
+</div>
+  </div>
+
+</section>
+
+{% endblock %}

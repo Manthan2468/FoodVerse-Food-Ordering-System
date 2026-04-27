@@ -1,0 +1,115 @@
+/*============== CART PAGE ==============*/
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:16px 0;
+    border-bottom:1px solid #eee;
+    font-size:18px;
+}
+
+.total-row{
+    font-weight:700;
+    font-size:22px;
+    color:#ff6b35;
+    margin-top:10px;
+    border-bottom:none;
+}
+
+.checkout-btn{
+    display:block;
+    text-align:center;
+    margin-top:30px;
+    background:linear-gradient(135deg,#ff6b35,#ff914d);
+    color:white;
+    padding:16px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:600;
+    font-size:18px;
+    transition:.3s;
+}
+
+.checkout-btn:hover{
+    transform:translateY(-3px);
+}
+
+.continue-btn{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    border:2px solid #ff6b35;
+    color:#ff6b35;
+    padding:15px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.continue-btn:hover{
+    background:#ff6b35;
+    color:white;
+}
+
+/* Responsive */
+@media(max-width:992px){
+    .cart-wrapper{grid-template-columns:1fr;}
+}
+
+@media(max-width:768px){
+    .cart-card{
+        flex-direction:column;
+        text-align:center;
+    }
+    .subtotal-box{text-align:center;}
+    .section-header h2{font-size:34px;}
+}
+
+/* Empty Cart */
+.empty-cart{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:80px 20px;
+}
+
+.empty-cart-box{
+    background:#fff;
+    padding:60px 50px;
+    border-radius:30px;
+    text-align:center;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+    max-width:650px;
+}
+
+.empty-cart-box img{
+    width:220px;
+    margin-bottom:30px;
+}
+
+.empty-cart-box h2{
+    font-size:42px;
+    margin-bottom:15px;
+    color:#222;
+}
+
+.empty-cart-box p{
+    font-size:18px;
+    color:#666;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+.shop-btn{
+    display:inline-block;
+    background:linear-gradient(135deg,#ff6b35,#ff914d);
+    color:#fff;
+    padding:16px 40px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.shop-btn:hover{
+    transform:translateY(-4px);
+}
