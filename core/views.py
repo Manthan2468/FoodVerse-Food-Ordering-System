@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from products.models import *
+from orders.models import *
 
 # Create your views here.
 
@@ -30,3 +31,13 @@ def contact(request):
         'page': 'Contact Us',
     }
     return render(request, 'contact.html', context)
+
+def global_data(request):
+    count_data = 0
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        count_data = CartItem.objects.filter(cart=cart).select_related('product').count()
+
+    return {
+        'number_of_cart_items': count_data,
+    }

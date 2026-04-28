@@ -30,13 +30,13 @@
                     </div>
                 </div>
                 <div class="quantity-box">
-                    <a href="#" class="qty-btn">-</a>
+                    <a href="{% url 'decrease_quantity' item.id %}" class="qty-btn">-</a>
                     <span>{{ item.quantity }}</span>
-                    <a href="#" class="qty-btn">+</a>
+                    <a href="{% url 'increase_quantity' item.id %}" class="qty-btn">+</a>
                 </div>
                 <div class="subtotal-box">
                     <h4>₹{{ item.total_price }}</h4>
-                    <a href="#" class="remove-btn">Remove</a>
+                    <a href="{% url 'remove_item' item.id %}" class="remove-btn">Remove</a>
                 </div>
             </div>
             {% endfor %}

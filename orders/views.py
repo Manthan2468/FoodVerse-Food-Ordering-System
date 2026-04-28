@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from decimal import Decimal
 
@@ -35,6 +35,34 @@ def cart_page(request):
         'grand_total': grand_total,
     }
     return render(request,'cart.html',context)
+
+def increase_quantity(request, id):
+    if request.user.is_authenticated:
+        cart_items = get_object_or_404(CartItem, id = id, cart__user=request.user)
+
+        cart_items.quantity += 1
+        cart_items.save()
+
+    return redirect('cart_page')
+
+def decrease_quantity(request, id):
+    if request.user.is_authenticated:
+        cart_items = get_object_or_404(CartItem, id = id, cart__user=request.user)
+        if cart_items.quantity > 1:
+            cart_items.quantity -= 1
+            cart_items.save()
+        else:
+            cart_items.delete()
+
+    return redirect('cart_page')
+
+def remove_item(request, id):
+    if request.user.is_authenticated:
+        cart_items = get_object_or_404(CartItem, id = id, cart__user=request.user)
+
+        cart_items.delete()
+
+    return redirect('cart_page')
 
 def update_cart_quantity(request):
     context = {
