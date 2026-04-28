@@ -12,6 +12,11 @@
   margin-top: 4rem;
 }
 
+.container-sub{
+  width: 90%;
+  margin: 0 auto;
+}
+
 /* ── Section Header ────────────────────────── */
 .section-header {
   text-align: center;
@@ -36,6 +41,7 @@
   display: grid;
   grid-template-columns: 1fr 320px;
   gap: 1.75rem;
+  width: 90%;
   align-items: start;
 }
 
@@ -177,6 +183,7 @@
 /* ── Order Summary Card ────────────────────── */
 .order-summary {
   position: sticky;
+  width: 120%;
   top: 1.5rem;
 }
 
@@ -354,4 +361,551 @@
   .section-header h2 {
     font-size: 1.5rem;
   }
+}
+
+
+
+
+/* CheckOut Page */
+
+.checkout-page{
+  padding:60px 0;
+  margin-top: 3rem;
+}
+
+.container{
+  width:90%;
+  max-width:1200px;
+  margin:auto;
+}
+
+.checkout-header{margin-bottom:50px;}
+
+.checkout-header h2{
+  font-size:42px;
+  color:#ff6b35;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.checkout-header p{color:#777;}
+
+.checkout-wrapper{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:35px;
+  align-items:start;
+}
+
+.container-sub2{
+  width:80%;
+  margin:0 auto;
+}
+
+
+.checkout-card{
+  background:#fff;
+  padding:30px;
+  border-radius:18px;
+  margin-bottom:25px;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+  border:1px solid #f1d6c9;
+}
+
+.card-title h4{
+  color:#2d3436;
+  margin-bottom:20px;
+  font-size:24px;
+}
+
+.address-box{
+  background:#fff7f0;
+  padding:20px;
+  border-radius:14px;
+  border:2px solid #ff6b35;
+}
+
+.address-box h5{
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.address-box p{
+  color:#555;
+  line-height:1.6;
+  margin-bottom:8px;
+}
+
+.change-btn, .add-address-btn{
+  margin-top:15px;
+  border:none;
+  padding:12px 22px;
+  border-radius:30px;
+  background:#ff6b35;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.change-btn:hover, .add-address-btn:hover{background:#e85d2a;}
+
+.payment-option{
+  display:block;
+  background:#fff7f0;
+  padding:18px;
+  border-radius:12px;
+  margin-bottom:15px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.payment-option input{margin-right:10px;}
+
+textarea{
+  width:100%;
+  height:120px;
+  border:1px solid #ddd;
+  padding:15px;
+  border-radius:12px;
+  resize:none;
+  outline:none;
+}
+
+.order-summary{
+  background:#fff;
+  padding:30px;
+  border-radius:20px;
+  position:sticky;
+  top:30px;
+  box-shadow:0 5px 20px rgba(0,0,0,.08);
+  border:1px solid #f1d6c9;
+}
+
+.order-summary h3{
+  margin-bottom:30px;
+  font-size:28px;
+  color:#2d3436;
+}
+
+.order-item, .bill-row{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:18px;
+  font-size:17px;
+}
+
+.grand-total{
+  margin-top:20px;
+  font-size:24px;
+  font-weight:700;
+  color:#ff6b35;
+}
+
+.place-order-btn{
+  width:100%;
+  margin-top:30px;
+  padding:18px;
+  border:none;
+  background:#ff6b35;
+  color:white;
+  font-size:18px;
+  font-weight:700;
+  border-radius:50px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.place-order-btn:hover{
+  background:#e85d2a;
+  transform:translateY(-2px);
+}
+
+hr{
+  border:none;
+  height:1px;
+  background:#eee;
+  margin:20px 0;
+}
+
+
+
+/* ========================= CHANGE ADDRESS PAGE ========================= */
+.address-page {
+    background: #f7f1e9;
+    min-height: 100vh;
+    margin-top: 3rem;
+    padding: 60px 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HEADER */
+.section-header {
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 54px;
+    font-weight: 800;
+    color: #c63d2d;
+    margin-bottom: 10px;
+}
+
+.section-header p {
+    font-size: 20px;
+    color: #777;
+}
+
+/* GRID */
+.address-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+
+/* ADDRESS CARD */
+.address-card {
+    background: #fff;
+    padding: 35px;
+    border-radius: 28px;
+    border: 1px solid #ead4c8;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .04);
+    transition: .3s;
+}
+
+.address-card:hover {
+    transform: translateY(-5px);
+}
+
+.default-badge {
+    display: inline-block;
+    background: #c63d2d;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.address-card h4 {
+    font-size: 28px;
+    margin-bottom: 18px;
+    color: #1f2937;
+}
+
+.address-card p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+/* ACTION BUTTONS */
+.address-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.default-btn {
+    background: #c63d2d;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.default-btn:hover {
+    background: #a93226;
+}
+
+.edit-btn {
+    background: white;
+    border: 1px solid #c63d2d;
+    color: #c63d2d;
+    padding: 12px 24px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.edit-btn:hover {
+    background: #c63d2d;
+    color: #fff;
+}
+
+/* ADD NEW BUTTON */
+.add-btn {
+    display: inline-block;
+    margin-top: 45px;
+    background: #c63d2d;
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.add-btn:hover {
+    background: #a93226;
+    transform: translateY(-2px);
+}
+
+/* EMPTY STATE */
+.empty-address-box {
+    background: #fff;
+    padding: 70px 45px;
+    border-radius: 30px;
+    text-align: center;
+    border: 1px solid #ead4c8;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, .04);
+    max-width: 650px;
+    margin: 40px auto;
+}
+
+.empty-address-box h3 {
+    font-size: 42px;
+    color: #c63d2d;
+    margin-bottom: 20px;
+}
+
+.empty-address-box p {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+/* MOBILE */
+@media(max-width:992px) {
+    .section-header h2 {
+        font-size: 42px;
+    }
+
+    .address-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .address-card {
+        padding: 28px;
+    }
+}
+
+@media(max-width:576px) {
+    .section-header h2 {
+        font-size: 34px;
+    }
+
+    .section-header p {
+        font-size: 17px;
+    }
+
+    .address-card h4 {
+        font-size: 24px;
+    }
+
+    .address-actions {
+        flex-direction: column;
+    }
+
+    .default-btn,
+    .edit-btn {
+        text-align: center;
+    }
+
+    .add-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
+
+
+
+/* Add new Address Page */
+
+.address-form-page{
+background:#f7f1e9;
+min-height:100vh;
+padding:70px 0;
+margin-top:3rem;
+}
+
+.container{
+width:90%;
+max-width:900px;
+margin:auto;
+}
+
+.form-header{
+margin-bottom:45px;
+}
+
+.form-header h2{
+font-size:54px;
+font-weight:800;
+color:#c63d2d;
+margin-bottom:10px;
+}
+
+.form-header p{
+font-size:20px;
+color:#777;
+}
+
+.address-form-card{
+background:#fff;
+padding:50px;
+border-radius:30px;
+border:1px solid #ead4c8;
+box-shadow:0 4px 18px rgba(0,0,0,.04);
+}
+
+.form-group{
+margin-bottom:25px;
+}
+
+.form-group label{
+display:block;
+font-weight:600;
+margin-bottom:10px;
+color:#1f2937;
+}
+
+.form-group input,
+.form-group textarea{
+width:100%;
+padding:16px 18px;
+border:1px solid #ddd;
+border-radius:16px;
+font-size:16px;
+outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+border-color:#c63d2d;
+}
+
+textarea{
+height:130px;
+resize:none;
+}
+
+.form-row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.button-group{
+display:flex;
+gap:18px;
+margin-top:35px;
+}
+
+.cancel-btn{
+flex:1;
+text-align:center;
+padding:16px;
+border:1px solid #c63d2d;
+color:#c63d2d;
+text-decoration:none;
+border-radius:18px;
+font-weight:700;
+}
+
+.save-btn{
+flex:1;
+padding:16px;
+border:none;
+background:#c63d2d;
+color:white;
+border-radius:18px;
+font-weight:700;
+font-size:17px;
+cursor:pointer;
+}
+
+.save-btn:hover{
+background:#a93226;
+}
+
+@media(max-width:768px){
+
+.form-row{
+grid-template-columns:1fr;
+}
+
+.address-form-card{
+padding:35px;
+}
+
+.form-header h2{
+font-size:40px;
+}
+
+.button-group{
+flex-direction:column;
+}
+
+}
+
+
+
+
+/* Update Address Page */
+
+/* UPDATE ADDRESS EXTRA STYLING */
+
+.address-form-card{
+position:relative;
+overflow:hidden;
+}
+
+.address-form-card::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:6px;
+background:linear-gradient(90deg,#ff6b35,#c63d2d);
+}
+
+.form-group input, .form-group textarea{
+transition:.3s;
+background:#fffdfa;
+}
+
+.form-group input:focus,
+.form-group textarea:focus{
+border-color:#ff6b35;
+box-shadow:0 0 0 4px rgba(255,107,53,.12);
+}
+
+.save-btn{
+background:linear-gradient(135deg,#ff6b35,#c63d2d);
+}
+
+.save-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 20px rgba(198,61,45,.25);
+}
+
+.cancel-btn:hover{
+background:#fff5f1;
 }

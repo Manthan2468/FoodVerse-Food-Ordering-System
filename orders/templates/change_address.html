@@ -1,0 +1,74 @@
+{% extends 'base_order.html' %}
+{% load static %}
+
+{% block body %}
+
+<section class="address-page">
+<div class="container">
+
+<div class="section-header text-center">
+    <h2>Change Address</h2>
+    <p>Select your delivery address</p>
+</div>
+
+<div class="address-grid">
+
+{% for address in addresses %}
+
+<div class="address-card">
+
+    {% if address.is_default %}
+    <span class="default-badge">Default Address</span>
+    {% endif %}
+
+    <h4>{{ address.full_name }}</h4>
+
+
+    <div class="address-text">
+        {{ address.address }} <br>
+        {{ address.city }},
+        {{ address.state }}
+        - {{ address.pincode }}
+    </div>
+
+
+    <div class="phone-row">📞 {{ address.phone }}</div>
+
+    <div class="address-actions">
+
+        {% if not address.is_default %}
+        <a href="{% url 'make_default_address' address.id %}" class="default-btn">Make Default </a>
+        {% endif %}
+
+        <a href="{% url 'update_address' address.id %}" class="edit-btn"> Edit </a>
+
+    </div>
+
+</div>
+
+
+{% empty %}
+
+<div class="empty-address-box">
+
+<h3>No Address Found</h3>
+
+<p>You haven't added any delivery address yet. Add your first address to continue.</p>
+
+<a href="{% url 'add_new_address' %}" class="add-btn">+ Add New Address</a>
+</div>
+
+{% endfor %}
+
+</div>
+
+{% if addresses %}
+    <div class="d-flex">
+        <a href="{% url 'add_new_address' %}" class="add-btn mx-auto">+ Add New Address</a>
+    </div>
+{% endif %}
+
+</div>
+</section>
+
+{% endblock %}

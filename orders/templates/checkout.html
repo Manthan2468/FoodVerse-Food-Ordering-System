@@ -1,8 +1,106 @@
 {% extends 'base_order.html' %}
+{% load static %}
+
 {% block body %}
 
-<h1>Jay Meldi Maa</h1>
-<h1>Har Har Mahadev</h1>
-<h1>Check Out</h1>
+<section class="checkout-page">
+<div class="container-sub2">
+
+    <div class="checkout-header text-center">
+        <h2>Checkout</h2>
+        <p>Review your order and place it</p>
+    </div>
+
+    <div class="checkout-wrapper">
+
+        <!-- LEFT SIDE -->
+        <div class="checkout-left">
+
+            <!-- Delivery Address -->
+            <div class="checkout-card">
+                <div class="card-title">
+                    <h4>Delivery Address</h4>
+                </div>
+
+                <div class="address-box active-address">
+                    <h5>{{ address.full_name }}</h5>
+                    <p>{{ address.address }}{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+                    <p>+91 {{ address.phone }}</p>
+                    <button class="change-btn">
+                        <a href="{% url 'change_address' %}" class="text-decoration-none text-white">Change Address</a>
+                    </button>
+                </div>
+
+                <button class="add-address-btn">
+                    <a href="{% url 'add_new_address' %}" class="text-decoration-none text-white ">+ Add New Address</a>
+                </button>
+            </div>
+
+
+            <!-- Payment Method -->
+            <div class="checkout-card">
+                <div class="card-title">
+                    <h4>Payment Method</h4>
+                </div>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" checked>
+                    Cash On Delivery
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment">
+                    UPI / Card Payment
+                </label>
+            </div>
+
+
+            <!-- Instructions -->
+            <div class="checkout-card">
+                <div class="card-title">
+                    <h4>Delivery Instructions</h4>
+                </div>
+
+                <textarea placeholder="Add notes for restaurant or delivery partner..."></textarea>
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="checkout-right">
+
+            <div class="order-summary">
+                <h3>Your Order</h3>
+
+                {% for item in cart_items %}
+                <div class="order-item">
+                    <span>{{ item.product.name }} x{{ item.quantity }}</span>
+                    <span>₹{{ item.total_price }}</span>
+                </div>
+                {% endfor %}
+                <hr>
+                <div class="bill-row">
+                    <span>Subtotal</span>
+                    <span>₹{{ subtotal|floatformat:2 }}</span>
+                </div>
+                <div class="bill-row">
+                    <span>Delivery</span>
+                    <span>₹{{ delivery_charges }}</span>
+                </div>
+                <div class="bill-row">
+                    <span>Tax</span>
+                    <span>₹{{ tax|floatformat:2 }}</span>
+                </div>
+                <div class="bill-row grand-total">
+                    <span>Total</span>
+                    <span>₹{{ grand_total|floatformat:2 }}</span>
+                </div>
+                <button class="place-order-btn">Place Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 
 {% endblock %}

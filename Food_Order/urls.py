@@ -34,7 +34,10 @@ urlpatterns = [
     path('order_success/<int:id>/',order_success, name='order_success'),
     path('my_orders/',my_orders, name='my_orders'),
     path('track_order/<int:id>/',order_tracking, name='order_tracking'),
-    path('address/',address_book,name='address_book'),
+    path('change_address/',change_address,name='change_address'),
+    path('make_default_address/<int:id>',make_default_address,name='make_default_address'),
+    path('add_new_address/',add_new_address,name='add_new_address'),
+    path('update_address/<int:id>',update_address,name='update_address'),
     path("admin/", admin.site.urls),
 ]
 
