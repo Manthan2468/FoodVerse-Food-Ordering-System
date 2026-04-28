@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import *
+from decimal import Decimal
 
 # Create your views here.
 
@@ -22,7 +23,7 @@ def cart_page(request):
     if subtotal > 200 or subtotal == 0:
         delivery_charges = 0
 
-    tax = subtotal * 0.05
+    tax = subtotal * Decimal('0.05')
     grand_total = subtotal + delivery_charges + tax
 
     context = {

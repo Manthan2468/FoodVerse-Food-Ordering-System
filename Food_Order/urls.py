@@ -22,6 +22,7 @@ urlpatterns = [
     path('restaurant/', restaurant, name='restaurant'),
     path('restaurant/view_menu/<int:id>', view_menu, name='view_menu'),
     path('category/', category, name='Category'),
+    path('cart/', cart_page, name='cart_page'),
     path('add_item_cart/<int:id>',add_item_cart, name='add_item_cart'),
     path('add_to_cart/<int:id>/',add_to_cart, name='add_to_cart'),
     path('update_cart/<int:id>/',update_cart_quantity, name='update_cart_quantity'),

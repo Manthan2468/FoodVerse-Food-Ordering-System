@@ -1,0 +1,357 @@
+*,*::before,*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Cart Page Wrapper ─────────────────────── */
+.cart-page {
+  background-color: #FFF8F0;
+  min-height: 80vh;
+  padding: 2.5rem 1rem;
+  margin-top: 4rem;
+}
+
+/* ── Section Header ────────────────────────── */
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #C0392B;
+  letter-spacing: -0.3px;
+}
+
+.section-header p {
+  font-size: 14px;
+  color: #888;
+  margin-top: 6px;
+}
+
+/* ── Cart Layout: Items + Summary ──────────── */
+.cart-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .cart-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Cart Card ─────────────────────────────── */
+.cart-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 0.5px solid #F0D9CC;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.cart-card:hover {
+  box-shadow: 0 4px 16px rgba(192, 57, 43, 0.08);
+}
+
+/* Cart Image */
+.cart-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 0.5px solid #F0D9CC;
+  flex-shrink: 0;
+}
+
+/* Cart Info */
+.cart-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-info h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-info p {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+.item-meta {
+  margin-top: 8px;
+}
+
+.price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #E67E22;
+}
+
+/* ── Quantity Controls ─────────────────────── */
+.quantity-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.qty-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #FFF0E5;
+  border: 1px solid #F0C4A0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #C0392B;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.qty-btn:hover {
+  background: #FFE0CC;
+  transform: scale(1.08);
+}
+
+.qty-btn:active {
+  transform: scale(0.96);
+}
+
+.quantity-box span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* ── Subtotal & Remove ─────────────────────── */
+.subtotal-box {
+  text-align: right;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+
+.subtotal-box h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.remove-btn {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #C0392B;
+  text-decoration: none;
+  border-bottom: 1px dashed #C0392B;
+  transition: opacity 0.15s ease;
+}
+
+.remove-btn:hover {
+  opacity: 0.7;
+}
+
+/* ── Order Summary Card ────────────────────── */
+.order-summary {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.summary-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 0.5px solid #F0D9CC;
+  padding: 1.5rem;
+}
+
+.summary-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #F0D9CC;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.summary-row span:last-child {
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.total-row {
+  border-top: 1px dashed #F0D9CC;
+  padding-top: 12px;
+  margin-top: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #1a1a1a;
+}
+
+.total-row span:last-child {
+  color: #C0392B;
+  font-size: 18px;
+}
+
+/* Checkout Button */
+.checkout-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: #C0392B;
+  color: #ffffff;
+  padding: 13px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 1.5rem;
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.checkout-btn:hover {
+  background: #A93226;
+  transform: translateY(-1px);
+}
+
+.checkout-btn:active {
+  transform: translateY(0);
+}
+
+/* Continue Shopping Button */
+.continue-btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  color: #C0392B;
+  border: 1.5px solid #C0392B;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 10px;
+  transition: background 0.15s ease;
+}
+
+.continue-btn:hover {
+  background: #FFF0EE;
+}
+
+/* ── Empty Cart Section ────────────────────── */
+.empty-cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+}
+
+.empty-cart-box {
+  text-align: center;
+  max-width: 380px;
+}
+
+.empty-cart-box img {
+  width: 160px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
+}
+
+.empty-cart-box h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+}
+
+.empty-cart-box p {
+  font-size: 14px;
+  color: #888;
+  line-height: 1.7;
+}
+
+.shop-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: #E67E22;
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.shop-btn:hover {
+  background: #CA6F1E;
+  transform: translateY(-1px);
+}
+
+.shop-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Responsive: Mobile ────────────────────── */
+@media (max-width: 600px) {
+  .cart-card {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .cart-image img {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cart-info {
+    width: calc(100% - 80px);
+  }
+
+  .quantity-box,
+  .subtotal-box {
+    flex: 1;
+  }
+
+  .subtotal-box {
+    text-align: right;
+  }
+
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+}
