@@ -41,7 +41,6 @@ class DeliveryAddress(models.Model):
         return self.full_name
 
 
-
 # ================= ORDER =================
 
 class Order(models.Model):

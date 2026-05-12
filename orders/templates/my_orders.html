@@ -1,8 +1,90 @@
 {% extends 'base_order.html' %}
+{% load static %}
+
 {% block body %}
 
-<h1>Jay Meldi Maa</h1>
-<h1>Har Har Mahadev</h1>
-<h1>My Orders</h1>
+<div class="orders-container">
+
+    <div class="orders-header">
+        <h1>My Orders</h1>
+        <p>Track all your delicious food orders in one place.</p>
+    </div>
+
+    {% if orders %}
+
+    <div class="orders-grid">
+
+        {% for order in orders %}
+
+        <div class="order-card">
+
+            <div class="order-top">
+                <div>
+                    <h3>Order #{{ order.id }}</h3>
+                    <span>{{ order.order_date|date:"d M Y, h:i A" }}</span>
+                </div>
+
+                <div class="status-my_order {{ order.order_status|lower }}">
+                    {{ order.order_status }}
+                </div>
+            </div>
+
+            <div class="restaurant-name">
+                🍴 {{ order.restaurant.name }}
+            </div>
+
+            <div class="order-items">
+
+                {% for item in order.order_items.all %}
+
+                <div class="item-row">
+                    <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                    <strong>₹{{ item.subtotal }}</strong>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <div class="order-bottom">
+
+                <div class="total">
+                    Total :
+                    <strong>₹{{ order.total_amount }}</strong>
+                </div>
+
+                <a href="{% url 'order_tracking' %}" class="track-btn">
+                    Track Order
+                </a>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-orders">
+
+        <img src="{% static 'images/empty-order.png' %}" alt="No Orders">
+
+        <h2>No Orders Yet</h2>
+
+        <p>
+            Looks like you haven't ordered anything yet.
+        </p>
+
+        <a href="/" class="shop-btn">
+            Explore Food
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
 
 {% endblock %}

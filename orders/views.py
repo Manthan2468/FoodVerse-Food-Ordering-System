@@ -1,9 +1,13 @@
+import json
 from multiprocessing import context
-
+from django.contrib.gis.db.backends.spatialite import client
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from Food_Order import settings
 from .models import *
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from decimal import Decimal
+import razorpay
 
 # Create your views here.
 
@@ -29,13 +33,6 @@ def cart_summery(request):
         'tax': tax,
         'grand_total': grand_total,
     }
-
-
-def add_to_cart(request):
-    context = {
-        'page': 'Add to Cart',
-    }
-    return redirect('cart')
 
 
 def cart_page(request):
@@ -67,18 +64,6 @@ def remove_item(request, id):
         cart_items.delete()
     return redirect('cart_page')
 
-def update_cart_quantity(request):
-    context = {
-        'page': 'Update Cart',
-    }
-    return redirect('cart')
-
-def remove_cart_item(request):
-    context = {
-        'page': 'Remove Cart',
-    }
-    return redirect('cart')
-
 def checkout(request):
     user_check(request)
     context = cart_summery(request)
@@ -88,20 +73,108 @@ def checkout(request):
     return render(request,'checkout.html',context)
 
 def place_order(request):
-    context = {
-        'page': 'Place Order',
-    }
+    user = request.user
+    user_check(request)
+
+    if request.method == 'POST':
+        payment_method = request.POST.get('payment')
+        cart = Cart.objects.get(user=user)
+        cart_items = CartItem.objects.filter(cart=cart)
+
+        if not cart_items:
+            return redirect('cart_page')
+
+        address = DeliveryAddress.objects.filter(user=user, is_default=True).first()
+
+        cart_data = cart_summery(request)
+
+        order = Order.objects.create(
+            user = user,
+            restaurant = cart_items.first().product.restaurant,
+            address = address,
+            total_amount = int(cart_data['grand_total']),
+            delivery_fee = int(cart_data['delivery_charges']),
+            payment_method = 'COD' if payment_method == 'COD' else 'Online'
+        )
+
+        for item in cart_items:
+            OrderItem.objects.create(
+                order = order,
+                product = item.product,
+                quantity = item.quantity,
+                price = item.product.price,
+            )
+
+        if payment_method == "COD":
+            cart_items.delete()
+            return redirect('order_success', id=order.id)
+
+        client = razorpay.Client(auth = (settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+        payment = client.order.create({
+            "amount" : int(float(cart_data['grand_total']) * 100),
+            "currency" : "INR",
+            "payment_capture" : 1
+        })
+
+        request.session['razorpay_order_id'] = payment['id']
+        request.session['order_id'] = order.id
+
+        context = {
+            'page': 'Place Order',
+            'payment': payment,
+            'razorpay_key' : settings.RAZORPAY_KEY_ID,
+            'amount' : cart_data['grand_total'],
+            'address' : address,
+            'order_id' : order.id
+        }
+
+        return render(request, 'razorpay_payment.html', context)
+
     return redirect('order_success')
 
-def order_success(request):
+
+def verify_payment(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+
+        # DEBUG: print what you received
+        print("Received data:", data)
+
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': data['razorpay_order_id'],
+                'razorpay_payment_id': data['razorpay_payment_id'],
+                'razorpay_signature': data['razorpay_signature']
+            })
+
+            order_id = request.session.get('order_id')
+            cart = Cart.objects.get(user=request.user)
+            CartItem.objects.filter(cart=cart).delete()
+
+            return JsonResponse({'status': 'success', 'order_id': order_id})
+
+        except Exception as e:
+            print("Verification error:", e)  # <-- see actual error
+            return JsonResponse({'status': 'failed', 'error': str(e)})
+
+def order_success(request, id):
+    order = Order.objects.get(id=id)
+    cart = Cart.objects.get(user=request.user)
+    CartItem.objects.filter(cart=cart).delete()
     context = {
         'page': 'Success Order',
+        'order': order,
     }
-    return render(request,'order_success.html',context)
+    return render(request, 'order_success.html', context)
 
 def my_orders(request):
+    orders = Order.objects.filter(user=request.user).prefetch_related('order_items').order_by('-id')
     context = {
         'page': 'My Orders',
+        'orders': orders,
     }
     return render(request,'my_orders.html',context)
 
@@ -110,6 +183,12 @@ def order_tracking(request):
         'page': 'Tracking Order',
     }
     return render(request,'order_tracking.html',context)
+
+
+
+
+
+# Address Data Functions
 
 def change_address(request):
     user_check(request)

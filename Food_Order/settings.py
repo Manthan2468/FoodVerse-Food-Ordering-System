@@ -123,3 +123,9 @@ STATICFILES_DIRS = [
 # MEDIA FILES (IMAGE)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Razorpay KEYS
+
+RAZORPAY_KEY_ID = 'rzp_test_SkR9yJ9M00cbeq'        # from Razorpay Dashboard
+RAZORPAY_KEY_SECRET = 'Grueg0ihhYlWsZAfwCgEMrRf'

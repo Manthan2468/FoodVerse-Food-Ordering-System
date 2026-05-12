@@ -22,15 +22,24 @@
                     <h4>Delivery Address</h4>
                 </div>
 
-                <div class="address-box active-address">
-                    <h5>{{ address.full_name }}</h5>
-                    <p>{{ address.address }}{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
-                    <p>+91 {{ address.phone }}</p>
-                    <button class="change-btn">
-                        <a href="{% url 'change_address' %}" class="text-decoration-none text-white">Change Address</a>
-                    </button>
-                </div>
-
+                {% if address %}
+                    <div class="address-box active-address">
+                        <h5>{{ address.full_name }}</h5>
+                        <p>{{ address.address }} {{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+                        <p>+91 {{ address.phone }}</p>
+                        <button class="change-btn">
+                            <a href="{% url 'change_address' %}" class="text-decoration-none text-white">Change Address</a>
+                        </button>
+                    </div>
+                {% else %}
+                    <div class="address-box no-address text-center">
+                        <h5 style="color:red;">Address Not Found</h5>
+                        <p>Please add a delivery address to continue.</p>
+                        <button class="add-address-btn">
+                            <a href="{% url 'add_new_address' %}" class="text-decoration-none text-white">+ Add Address</a>
+                        </button>
+                    </div>
+                {% endif %}
                 <button class="add-address-btn">
                     <a href="{% url 'add_new_address' %}" class="text-decoration-none text-white ">+ Add New Address</a>
                 </button>
@@ -39,29 +48,24 @@
 
             <!-- Payment Method -->
             <div class="checkout-card">
+                <form action="{% url 'place_order' %}" method="POST">
+                {% csrf_token %}
                 <div class="card-title">
                     <h4>Payment Method</h4>
                 </div>
 
                 <label class="payment-option">
-                    <input type="radio" name="payment" checked>
+                    <input type="radio" name="payment" value="COD" checked>
                     Cash On Delivery
                 </label>
 
                 <label class="payment-option">
-                    <input type="radio" name="payment">
+                    <input type="radio" name="payment" value="ONLINE">
                     UPI / Card Payment
                 </label>
-            </div>
 
-
-            <!-- Instructions -->
-            <div class="checkout-card">
-                <div class="card-title">
-                    <h4>Delivery Instructions</h4>
-                </div>
-
-                <textarea placeholder="Add notes for restaurant or delivery partner..."></textarea>
+                <button type="submit" class="place-order-btn">Place Order</button>
+                </form>
             </div>
 
         </div>
@@ -96,7 +100,6 @@
                     <span>Total</span>
                     <span>₹{{ grand_total|floatformat:2 }}</span>
                 </div>
-                <button class="place-order-btn">Place Order</button>
             </div>
         </div>
     </div>

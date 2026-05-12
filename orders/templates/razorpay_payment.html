@@ -1,0 +1,123 @@
+{% extends 'base_order.html' %}
+{% load static %}
+
+{% block body %}
+
+<section class="payment-page">
+<div class="container-sub2">
+
+    <!-- HEADER -->
+    <div class="checkout-header text-center">
+        <h2>Complete Payment</h2>
+        <p>Secure payment via Razorpay</p>
+    </div>
+
+    <div class="payment-wrapper">
+        <!-- LEFT SIDE -->
+        <div class="payment-left">
+            <!-- Payment Info -->
+            <div class="checkout-card text-center">
+                <h4>Total Amount</h4>
+                <h2 style="color:#28a745;">₹{{ amount|floatformat:2 }}</h2>
+                <p>Click below to complete your payment securely.</p>
+                <button id="pay-btn" class="place-order-btn"> Pay Now </button>
+            </div>
+
+            <!-- Safety Info -->
+            <div class="checkout-card text-center">
+                <h5>🔒 100% Secure Payment</h5>
+                <p>Your payment is processed securely using Razorpay.</p>
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="payment-right">
+
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+
+                <div class="bill-row">
+                    <span>Order ID</span>
+                    <span>#{{ payment.id }}</span>
+                </div>
+
+                <div class="bill-row">
+                    <span>Amount</span>
+                    <span>₹{{ amount|floatformat:2 }}</span>
+                </div>
+
+                <div class="bill-row">
+                    <span>Currency</span>
+                    <span>INR</span>
+                </div>
+
+                <hr>
+
+                <div class="bill-row grand-total">
+                    <span>Payable</span>
+                    <span>₹{{ amount|floatformat:2 }}</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</section>
+
+
+<!-- ================= RAZORPAY SCRIPT ================= -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+var options = {
+    "key": "{{ razorpay_key }}",
+    "amount": "{{ payment.amount }}",   // in paise
+    "currency": "INR",
+    "name": "Food Ordering System",
+    "description": "Order Payment",
+    "order_id": "{{ payment.id }}",
+
+    handler: function (response){
+    fetch("/verify_payment/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify(response)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.status === "success"){
+            // Use order_id returned from backend
+            window.location.href = "/order_success/" + data.order_id + "/";
+        } else {
+            alert("Payment verification failed");
+        }
+    });
+    },
+
+    "prefill": {
+        "name": "{{ request.user.username }}",
+        "email": "",
+        "contact": "{{ address.phone|default:'' }}"
+    },
+
+    "theme": {
+        "color": "#ff6b6b"
+    }
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById('pay-btn').onclick = function(e){
+    e.preventDefault();
+    rzp.open();
+}
+</script>
+
+{% endblock %}
