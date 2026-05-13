@@ -171,22 +171,13 @@ def order_success(request, id):
     return render(request, 'order_success.html', context)
 
 def my_orders(request):
+    user_check(request)
     orders = Order.objects.filter(user=request.user).prefetch_related('order_items').order_by('-id')
     context = {
         'page': 'My Orders',
         'orders': orders,
     }
     return render(request,'my_orders.html',context)
-
-def order_tracking(request):
-    context = {
-        'page': 'Tracking Order',
-    }
-    return render(request,'order_tracking.html',context)
-
-
-
-
 
 # Address Data Functions
 
@@ -248,3 +239,27 @@ def update_address(request, id):
         'address': address,
     }
     return render(request,'update_address.html',context)
+
+
+# Order Tracking
+
+def order_tracking(request, id):
+    user_check(request)
+    order = get_object_or_404(Order.objects.prefetch_related('order_items'), id=id, user=request.user)
+
+    context = {
+        'page': 'Tracking Order',
+        'order': order
+    }
+    return render(request,'order_tracking.html',context)
+
+
+def cancel_order(request, id):
+    user_check(request)
+    order = get_object_or_404(Order, id=id, user=request.user)
+    if order.order_status in ['Pending', 'Preparing']:
+        order.order_status = 'Cancelled'
+        order.is_cancelled = True
+        order.save()
+
+    return redirect('/my_orders/')

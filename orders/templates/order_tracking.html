@@ -1,8 +1,131 @@
 {% extends 'base_order.html' %}
+{% load static %}
+
 {% block body %}
 
-<h1>Jay Meldi Maa</h1>
-<h1>Har Har Mahadev</h1>
-<h1>Order Tracking</h1>
+<div class="tracking-container">
+
+    <div class="tracking-header">
+        <h1>Track Your Order</h1>
+        <p>Order #{{ order.id }}</p>
+    </div>
+
+    <div class="tracking-card">
+
+        <div class="restaurant-box">
+            <h2>{{ order.restaurant.name }}</h2>
+            <span class="status {{ order.order_status|lower }}">
+                {{ order.order_status }}
+            </span>
+        </div>
+
+        <div class="timeline">
+
+            <!-- Pending -->
+            <div class="timeline-item
+                {% if order.order_status == 'Pending' or order.order_status == 'Preparing' or order.order_status == 'Out for Delivery' or order.order_status == 'Delivered' %}
+                active
+                {% endif %}
+            ">
+                <div class="circle"></div>
+                <div class="content">
+                    <h3>Order Confirmed</h3>
+                    <p>Your order has been placed successfully.</p>
+                </div>
+            </div>
+
+            <!-- Preparing -->
+            <div class="timeline-item
+                {% if order.order_status == 'Preparing' or order.order_status == 'Out for Delivery' or order.order_status == 'Delivered' %}
+                active
+                {% endif %}
+            ">
+                <div class="circle"></div>
+                <div class="content">
+                    <h3>Preparing Food</h3>
+                    <p>The restaurant is preparing your food.</p>
+                </div>
+            </div>
+
+            <!-- Out for Delivery -->
+            <div class="timeline-item
+                {% if order.order_status == 'Out for Delivery' or order.order_status == 'Delivered' %}
+                active
+                {% endif %}
+            ">
+                <div class="circle"></div>
+                <div class="content">
+                    <h3>Out for Delivery</h3>
+                    <p>Your food is on the way.</p>
+                </div>
+            </div>
+
+            <!-- Delivered -->
+            <div class="timeline-item
+                {% if order.order_status == 'Delivered' %}
+                active
+                {% endif %}
+            ">
+                <div class="circle"></div>
+                <div class="content">
+                    <h3>Delivered</h3>
+                    <p>Your order has been delivered.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="order-details">
+
+            <h2>Order Details</h2>
+
+            {% for item in order.order_items.all %}
+            <div class="item">
+                <span>
+                    {{ item.product.name }} × {{ item.quantity }}
+                </span>
+
+                <span>
+                    ₹{{ item.subtotal }}
+                </span>
+            </div>
+            {% endfor %}
+
+            <div class="summary">
+                <div>
+                    <span>Delivery Fee</span>
+                    <span>₹{{ order.delivery_fee }}</span>
+                </div>
+
+                <div class="total">
+                    <span>Total</span>
+                    <span>₹{{ order.total_amount }}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="delivery-address">
+            <h2>Delivery Address</h2>
+
+            <p>{{ order.address.full_name }}</p>
+            <p>{{ order.address.phone }}</p>
+            <p>
+                {{ order.address.address }},
+                {{ order.address.city }},
+                {{ order.address.state }} -
+                {{ order.address.pincode }}
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    setInterval(() => {
+        location.reload();
+    }, 10000);
+</script>
 
 {% endblock %}

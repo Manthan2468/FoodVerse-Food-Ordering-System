@@ -628,6 +628,16 @@ hr{
     color: #fff;
 }
 
+.cancelled-message{
+    background: #fee2e2;
+    color: #dc2626;
+    padding: 12px 20px;
+    margin: 0 auto;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
 /* ADD NEW BUTTON */
 .add-btn {
     display: inline-block;
@@ -1251,7 +1261,7 @@ background:#fff5f1;
     border-radius: 30px;
     font-size: 13px;
     font-weight: 600;
-    color: white;
+    color: white !important;
 }
 
 .pending{
@@ -1378,6 +1388,65 @@ background:#fff5f1;
   font-weight: 600;
 }
 
+.order-bottom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.total{
+    font-size: 20px;
+    font-weight: 600;
+    color: #0b1b4d;
+}
+
+.order-actions{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0.75rem 0;
+}
+
+.one-button{
+    justify-content: center;
+}
+
+.two-buttons{
+    justify-content: space-between;
+}
+
+.track-btn,.cancel-btn{
+    padding: 12px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    text-align: center;
+    min-width: 120px;
+    transition: 0.3s;
+}
+
+.track-btn{
+    background: linear-gradient(to right,#ff8c00,#ffb347);
+}
+
+.track-btn:hover{
+    transform: translateY(-2px);
+}
+
+.cancel-btn{
+    background: #ef4444;
+}
+
+.cancel-btn:hover{
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
 @media(max-width:768px){
 
     .orders-container{
@@ -1398,4 +1467,170 @@ background:#fff5f1;
         width: 100%;
         text-align: center;
     }
+}
+
+
+
+
+/* Order Tracking */
+
+.tracking-container{
+  width: 90%;
+  margin: 6rem auto;
+}
+
+.tracking-header{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.tracking-header h1{
+    font-size: 42px;
+    color: #0b1b4d;
+}
+
+.tracking-header p{
+    color: gray;
+    margin-top: 10px;
+}
+
+.tracking-card{
+    background: white;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.restaurant-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.restaurant-box h2{
+    color: #0b1b4d;
+}
+
+.status{
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    color: white !important;
+}
+
+.status.pending{
+    background: #f59e0b;
+}
+
+.status.preparing{
+    background: #ff8800;
+}
+
+.status.out{
+    background: #3b82f6;
+}
+
+.status.delivered{
+    background: #22c55e;
+}
+
+.timeline{
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.timeline::before{
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #ddd;
+}
+
+.timeline-item{
+    position: relative;
+    padding-left: 50px;
+    margin-bottom: 40px;
+}
+
+.circle{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.timeline-item.active .circle{
+    background: #ff8c00;
+}
+
+.timeline-item h3{
+    color: #0b1b4d;
+    margin-bottom: 8px;
+}
+
+.timeline-item p{
+    color: gray;
+}
+
+.order-details{
+    margin-top: 30px;
+}
+
+.order-details h2{
+    margin-bottom: 20px;
+    color: #0b1b4d;
+}
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.summary{
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.summary div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.total{
+    font-size: 24px;
+    font-weight: bold;
+    color: #0b1b4d;
+}
+
+.delivery-address{
+    margin-top: 40px;
+}
+
+.delivery-address h2{
+    margin-bottom: 15px;
+    color: #0b1b4d;
+}
+
+.delivery-address p{
+    color: gray;
+    margin-bottom: 8px;
+}
+
+.track-btn{
+    background: linear-gradient(to right,#ff8c00,#ffb347);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
 }

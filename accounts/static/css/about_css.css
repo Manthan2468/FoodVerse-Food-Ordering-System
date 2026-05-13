@@ -12,6 +12,7 @@ body {
 
 /* ===== HERO (COMMON BASE) ===== */
 .hero {
+    margin-top: 4rem;
     padding: 60px;
 }
 
@@ -24,10 +25,14 @@ body {
 }
 
 .hero_about{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(to right, #fff5f5, #ffe6e6, #fff0e6);
 }
 
-.hero_contact h1{
+.hero_about h1, .hero_contact h1{
     color: #ff5a5f;
 }
 
@@ -160,8 +165,7 @@ body {
     margin-bottom: 20px;
 }
 
-.contact-form input,
-.contact-form textarea {
+.contact-form input, .contact-form textarea {
     width: 100%;
     padding: 12px;
     margin-bottom: 15px;

@@ -19,6 +19,7 @@
         <div class="order-card">
 
             <div class="order-top">
+
                 <div>
                     <h3>Order #{{ order.id }}</h3>
                     <span>{{ order.order_date|date:"d M Y, h:i A" }}</span>
@@ -27,6 +28,7 @@
                 <div class="status-my_order {{ order.order_status|lower }}">
                     {{ order.order_status }}
                 </div>
+
             </div>
 
             <div class="restaurant-name">
@@ -38,8 +40,15 @@
                 {% for item in order.order_items.all %}
 
                 <div class="item-row">
-                    <span>{{ item.product.name }} × {{ item.quantity }}</span>
-                    <strong>₹{{ item.subtotal }}</strong>
+
+                    <span>
+                        {{ item.product.name }} × {{ item.quantity }}
+                    </span>
+
+                    <strong>
+                        ₹{{ item.subtotal }}
+                    </strong>
+
                 </div>
 
                 {% endfor %}
@@ -49,13 +58,44 @@
             <div class="order-bottom">
 
                 <div class="total">
-                    Total :
-                    <strong>₹{{ order.total_amount }}</strong>
+                    Total : <strong>₹{{ order.total_amount }}</strong>
                 </div>
 
-                <a href="{% url 'order_tracking' %}" class="track-btn">
-                    Track Order
-                </a>
+                {% if order.is_cancelled == True %}
+
+                <div class="cancelled-message">
+                    ❌ This order has been cancelled
+                </div>
+
+                {% else %}
+
+                <div class="order-actions
+                    {% if order.order_status == 'Pending' or order.order_status == 'Preparing' %}
+                        two-buttons
+                    {% else %}
+                        one-button
+                    {% endif %}
+                ">
+
+                    <div>
+                        <a href="/track_your_order/{{ order.id }}" class="track-btn">
+                            Track Order
+                        </a>
+                    </div>
+
+                    {% if order.order_status == "Pending" or order.order_status == "Preparing" %}
+
+                    <div>
+                        <a href="/cancel_order/{{ order.id }}/" class="cancel-btn">
+                            Cancel Order
+                        </a>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
 
             </div>
 
