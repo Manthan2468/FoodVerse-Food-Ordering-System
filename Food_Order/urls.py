@@ -4,6 +4,7 @@ from accounts.views import *
 from core.views import *
 from products.views import *
 from orders.views import *
+from review.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -37,6 +38,10 @@ urlpatterns = [
     path('add_new_address/',add_new_address,name='add_new_address'),
     path('update_address/<int:id>',update_address,name='update_address'),
     path('cancel_order/<int:id>/', cancel_order, name='cancel_order'),
+    path('add_review/<int:id>/',add_review, name='add_review'),
+    path('edit_review', edit_review, name='edit_review'),
+    path('delete_review/<int:id>/',delete_review, name='delete_review'),
+    path('review_list', review_list, name='review_list'),
     path("admin/", admin.site.urls),
 ]
 

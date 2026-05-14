@@ -1,0 +1,127 @@
+{% extends 'base_review.html' %}
+{% load static %}
+
+{% block review %}
+
+<link rel="stylesheet" href="{% static 'css/add_review.css' %}">
+
+<div class="review-page">
+
+    <div class="review-container">
+
+        <!-- Left Side -->
+
+        <div class="review-left">
+
+            <div class="review-image-box">
+                <img src="{{ order.restaurant.image.url }}" alt="Food Item">
+            </div>
+
+            <div class="restaurant-details">
+
+                <h2>{{ order.restaurant.name }}</h2>
+
+                <p>
+                    Thank you for ordering with us ❤️
+                </p>
+
+                <div class="order-info">
+
+                    <span>
+                        Order #{{ order.id }}
+                    </span>
+
+                    <span>
+                        {{ order.order_date|date:"d M Y" }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="review-right">
+
+            <div class="review-header">
+
+                <h1>Write a Review</h1>
+
+                <p>
+                    Share your food experience with other customers.
+                </p>
+
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <!-- Rating -->
+
+                <div class="form-group">
+
+                    <label>Select Rating</label>
+
+                    <div class="rating-box">
+
+                        <input type="radio" name="rating" value="5" id="star5">
+                        <label for="star5">★</label>
+
+                        <input type="radio" name="rating" value="4" id="star4">
+                        <label for="star4">★</label>
+
+                        <input type="radio" name="rating" value="3" id="star3">
+                        <label for="star3">★</label>
+
+                        <input type="radio" name="rating" value="2" id="star2">
+                        <label for="star2">★</label>
+
+                        <input type="radio" name="rating" value="1" id="star1">
+                        <label for="star1">★</label>
+
+                    </div>
+
+                </div>
+
+                <!-- Review Message -->
+
+                <div class="form-group">
+
+                    <label>Write Your Review</label>
+
+                    <textarea
+                        name="review_message"
+                        placeholder="Tell us about your food experience..."
+                        required
+                    ></textarea>
+
+                </div>
+
+                <!-- Upload Image -->
+
+                <div class="form-group">
+
+                    <label>Upload Food Image (Optional)</label>
+
+                    <input type="file" name="review_image">
+
+                </div>
+
+                <!-- Submit Button -->
+
+                <button type="submit" class="submit-review-btn">
+                    Submit Review
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

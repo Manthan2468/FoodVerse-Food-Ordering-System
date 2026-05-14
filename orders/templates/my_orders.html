@@ -69,27 +69,55 @@
 
                 {% else %}
 
-                <div class="order-actions
-                    {% if order.order_status == 'Pending' or order.order_status == 'Preparing' %}
-                        two-buttons
-                    {% else %}
-                        one-button
-                    {% endif %}
-                ">
+                <div class="order-actions">
 
-                    <div>
+                    <!-- Track Order -->
+
+                    {% if order.order_status != "Delivered" %}
+
                         <a href="/track_your_order/{{ order.id }}" class="track-btn">
                             Track Order
                         </a>
-                    </div>
+
+                    {% endif %}
+
+                    <!-- Cancel Order -->
 
                     {% if order.order_status == "Pending" or order.order_status == "Preparing" %}
 
-                    <div>
                         <a href="/cancel_order/{{ order.id }}/" class="cancel-btn">
                             Cancel Order
                         </a>
-                    </div>
+
+                    {% endif %}
+
+                    <!-- Review Section -->
+
+                    {% if order.order_status == "Delivered" %}
+
+                        {% if order.review_exists %}
+
+                        <div class="review_btn_div review-action-group">
+
+                            <a href="#" class="reviewed-btn">
+                                Review Submitted
+                            </a>
+
+                            <a href="/delete_review/{{ order.review_id }}/" class="delete-review-btn">
+                                Delete Review
+                            </a>
+
+                        </div>
+
+                        {% else %}
+
+                        <div class="review_btn_div">
+                            <a href="/add_review/{{ order.id }}/" class="review-btn">
+                                Give Review
+                            </a>
+                        </div>
+
+                        {% endif %}
 
                     {% endif %}
 

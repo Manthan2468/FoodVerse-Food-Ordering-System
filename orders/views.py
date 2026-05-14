@@ -170,15 +170,31 @@ def order_success(request, id):
     }
     return render(request, 'order_success.html', context)
 
+from review.models import Review
+
 def my_orders(request):
     user_check(request)
     orders = Order.objects.filter(user=request.user).prefetch_related('order_items').order_by('-id')
+
+    # CHECK REVIEW STATUS
+
+    for order in orders:
+        order.review_exists = Review.objects.filter(order=order,user=request.user).exists()
+
+        review = Review.objects.filter(order=order,user=request.user).first()
+
+        if review:
+            order.review_exists = True
+            order.review_id = review.id
+        else:
+            order.review_exists = False
+            order.review_id = None
+
     context = {
         'page': 'My Orders',
         'orders': orders,
     }
     return render(request,'my_orders.html',context)
-
 # Address Data Functions
 
 def change_address(request):
