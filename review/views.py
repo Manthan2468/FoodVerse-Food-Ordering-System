@@ -49,9 +49,24 @@ def add_review(request, id):
 
 
 @login_required(login_url='/accounts/login/')
-def edit_review(request):
+def edit_review(request, id):
+    review = get_object_or_404(Review, id=id, user=request.user)
+
+    if request.method == 'POST':
+        review.rating = request.POST['rating']
+        review.review_message = request.POST['review_message']
+        review.is_edited = True
+
+        if request.FILES.get('review_image'):
+            ReviewImage.objects.create(review = review, image = request.FILES.get('review_image'))
+
+        review.save()
+        messages.success(request, 'Review Updated Successfully ❤️')
+        return redirect('my_orders')
+
     context = {
-        'page' : 'Edit Review'
+        'page' : 'Edit Review',
+        'review' : review
     }
     return render(request, 'edit_review.html', context)
 
@@ -60,17 +75,9 @@ def edit_review(request):
 def delete_review(request, id):
     review = get_object_or_404(Review, id=id, user=request.user)
 
-    if request.method == 'POST':
-        review.delete()
-        messages.success(request, 'Review Deleted Successfully')
-        return redirect('my_orders')
-
-    context = {
-        'page' : 'Delete Review',
-        'review' : review
-    }
-    return render(request, 'delete_review.html', context)
-
+    review.delete()
+    messages.success(request, 'Review Deleted Successfully')
+    return redirect('my_orders')
 
 @login_required(login_url='/accounts/login/')
 def review_list(request):

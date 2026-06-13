@@ -97,14 +97,10 @@
 
                         {% if order.review_exists %}
 
-                        <div class="review_btn_div review-action-group">
+                        <div class="review_btn_div">
 
-                            <a href="#" class="reviewed-btn">
-                                Review Submitted
-                            </a>
-
-                            <a href="/delete_review/{{ order.review_id }}/" class="delete-review-btn">
-                                Delete Review
+                            <a href="{% url 'edit_review' order.review_id %}" class="reviewed-btn">
+                                View Review
                             </a>
 
                         </div>

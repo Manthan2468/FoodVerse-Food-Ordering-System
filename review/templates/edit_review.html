@@ -1,8 +1,121 @@
 {% extends 'base_review.html' %}
+{% load static %}
 
 {% block review %}
 
-<h1>Jay Maa Meldi</h1>
-<h1>Har Har Mahadev</h1>
+<link rel="stylesheet" href="{% static 'css/edit_review.css' %}">
+
+<div class="edit-review-page">
+
+    <div class="edit-review-container">
+
+        <!-- Left Side -->
+
+        <div class="edit-review-left">
+
+            <div class="food-image-box">
+                <img src="{{ review.order.restaurant.image.url }}" alt="Food Image">
+            </div>
+
+            <div class="food-details">
+                <h2>{{ review.order.restaurant.name }}</h2>
+                <p>{{ review.order.restaurant.address }}</p>
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="edit-review-right">
+
+            <div class="review-header">
+                <h1>Edit Your Review</h1>
+                <p>Update your experience anytime.</p>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <!-- Rating -->
+
+                <div class="form-group">
+                    <label>Update Rating</label>
+
+                    <div class="rating-stars">
+
+                        {% for i in "12345" %}
+
+                        <input type="radio"
+                               id="star{{ i }}"
+                               name="rating"
+                               value="{{ i }}"
+                               {% if review.rating|stringformat:"s" == i %}checked{% endif %}>
+
+                        <label for="star{{ i }}">★</label>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <!-- Review Message -->
+
+                <div class="form-group">
+                    <label>Update Review</label>
+
+                    <textarea name="review_text"
+                              rows="5"
+                              placeholder="Write your updated review here...">{{ review.review_text }}</textarea>
+                </div>
+
+                <!-- Upload New Images -->
+
+                <div class="form-group">
+                    <label>Update Review Images</label>
+
+                    <input type="file"
+                           name="review_images"
+                           multiple>
+                </div>
+
+                <!-- Existing Images -->
+
+                {% if review.review_images.all %}
+
+                <div class="existing-images">
+
+                    {% for image in review.review_images.all %}
+
+                    <div class="image-card">
+                        <img src="{{ image.image.url }}" alt="Review Image">
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+                <!-- Buttons -->
+
+                <div class="button-group">
+
+                    <button type="submit" class="update-btn">
+                        Update Review
+                    </button>
+
+                    <a href="{% url 'delete_review' review.id %}" class="delete-btn">
+                        Delete Review
+                    </a>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
